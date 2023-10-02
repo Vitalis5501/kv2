@@ -39,6 +39,7 @@ def migrate_secret(source_vault_url, destination_vault_url, secret_name):
     destination_client.set_secret(secret_name, secret.value, **secret.properties)
     print(f'Secret "{secret_name}" migrated successfully.')
 
+
 # Replace these with your actual values
 key_vault_region = 'East US'
 source_vault_name = 'Nonso-kv-NP'
