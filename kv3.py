@@ -38,25 +38,24 @@ def migrate_secret(source_vault_url, destination_vault_url, secret_name):
 
     secret = source_client.get_secret(secret_name)
     secret_value = secret.value
-
-    # Copy properties excluding 'content_type' which is not supported in set_secret
-    secret_properties = {k:v for k,v in secret.properties.items() if k != 'content_type'}
+    secret_properties = secret.properties
 
     destination_client.set_secret(secret_name, secret_value, **secret_properties)
     print(f'Secret "{secret_name}" migrated successfully.')
 
 # Replace these with your actual values
-key_vault_region = 'East US'
-source_vault_name = 'Nonso-kv-NP'
-destination_vault_name = 'SIA-KV-US2'
+source_key_vault_region = 'East US'
+source_key_vault_name = 'Nonso-kv-NP'
+destination_key_vault_region = 'East US2'
+destination_key_vault_name = 'SIA-KV-US2'
 secret_name = 'Password'
-secret_value = 'IT'
+secret_value = ''
 
-source_vault_url = get_key_vault_url(key_vault_region, source_vault_name)
-destination_vault_url = get_key_vault_url(key_vault_region, destination_vault_name)
+source_key_vault_url = get_key_vault_url(source_key_vault_region, source_key_vault_name)
+destination_key_vault_url = get_key_vault_url(destination_key_vault_region, destination_key_vault_name)
 
 # Uncomment the action you want to perform
-# create_secret(source_vault_url, secret_name, secret_value, expiration_date=30)  # Set expiration in days
-# get_secret(source_vault_url, secret_name)
-# delete_secret(source_vault_url, secret_name)
-migrate_secret(source_vault_url, destination_vault_url, secret_name)
+# create_secret(source_key_vault_url, secret_name, secret_value, expiration_date=30)  # Set expiration in days
+# get_secret(source_key_vault_url, secret_name)
+# delete_secret(source_key_vault_url, secret_name)
+# migrate_secret(source_key_vault_url, destination_key_vault_url, secret_name)
