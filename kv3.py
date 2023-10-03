@@ -40,7 +40,7 @@ def migrate_secret(source_vault_url, destination_vault_url, secret_name):
     secret_value = secret.value
     secret_properties = secret.properties
 
-    destination_client.set_secret(secret_name, secret_value, **secret_properties)
+    destination_client.set_secret(secret_name, secret_value,expiration_date=None)
     print(f'Secret "{secret_name}" migrated successfully.')
 
 # Replace these with your actual values
