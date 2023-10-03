@@ -38,7 +38,9 @@ def migrate_secret(source_vault_url, destination_vault_url, secret_name):
 
     secret = source_client.get_secret(secret_name)
     secret_value = secret.value
-    secret_properties = secret.properties
+
+    # Copy properties excluding 'content_type' which is not supported in set_secret
+    secret_properties = {k:v for k,v in secret.properties.items() if k != 'content_type'}
 
     destination_client.set_secret(secret_name, secret_value, **secret_properties)
     print(f'Secret "{secret_name}" migrated successfully.')
